@@ -5,24 +5,22 @@
  */
 package poly.gui;
 
-import com.sun.java.swing.plaf.motif.MotifTabbedPaneUI;
-import com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.plaf.TabbedPaneUI;
-import javax.swing.plaf.metal.MetalTabbedPaneUI;
-import javax.swing.plaf.multi.MultiTabbedPaneUI;
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartPanel;
 import poly.dao.DoanhThuDao;
 import poly.helper.CustomTabbedPaneUI;
+import poly.helper.Messeger;
+import poly.helper.XExcel;
 
 /**
  *
@@ -101,8 +99,16 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         jPanel17 = new javax.swing.JPanel();
         panelChard = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblSP = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        btnXuatSP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jTabbedPane1.setForeground(new java.awt.Color(102, 0, 153));
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jTabbedPane1.setOpaque(true);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -299,7 +305,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         monthCard.setBackground(new java.awt.Color(204, 102, 255));
         monthCard.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 100, 0, 100, new java.awt.Color(204, 102, 255)));
-        monthCard.setLayout(new java.awt.GridLayout());
+        monthCard.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -322,7 +328,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         yearCard.setLayout(yearCardLayout);
         yearCardLayout.setHorizontalGroup(
             yearCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
+            .addGap(0, 956, Short.MAX_VALUE)
         );
         yearCardLayout.setVerticalGroup(
             yearCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,14 +343,18 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setPreferredSize(new java.awt.Dimension(1469, 500));
-        jPanel14.setLayout(new java.awt.GridLayout());
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
 
+        tpBang.setForeground(new java.awt.Color(102, 0, 153));
         tpBang.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        tpBang.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tpBang.setOpaque(true);
 
-        jPanel15.setLayout(new java.awt.GridLayout());
+        jPanel15.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel18.setLayout(new java.awt.BorderLayout());
 
+        tblTK.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         tblTK.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -356,6 +366,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTK.setRowHeight(24);
         jScrollPane1.setViewportView(tblTK);
 
         jPanel18.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -380,10 +391,10 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         tpBang.addTab("Bảng", jPanel15);
 
-        jPanel17.setLayout(new java.awt.GridLayout());
+        jPanel17.setLayout(new java.awt.GridLayout(1, 0));
 
         panelChard.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, new java.awt.Color(240, 240, 240)));
-        panelChard.setLayout(new java.awt.GridLayout());
+        panelChard.setLayout(new java.awt.GridLayout(1, 0));
         jPanel17.add(panelChard);
 
         tpBang.addTab("Biểu Đồ", jPanel17);
@@ -396,16 +407,55 @@ public class ThongKeJDialog extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Doanh Thu", jPanel1);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
-        );
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        tblSP.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tblSP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã SP", "Tên SP", "Mã Vạch", "Tên DM", "Màu", "Đơn Vị Tính", "Size", "Chất Liệu", "Số Lượng"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblSP.setRowHeight(24);
+        jScrollPane2.setViewportView(tblSP);
+
+        jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setPreferredSize(new java.awt.Dimension(1469, 50));
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        btnXuatSP.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnXuatSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/poly/icons/excel.png"))); // NOI18N
+        btnXuatSP.setText("Xuất File");
+        btnXuatSP.setPreferredSize(new java.awt.Dimension(230, 49));
+        btnXuatSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatSPActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnXuatSP, java.awt.BorderLayout.EAST);
+
+        jPanel2.add(jPanel4, java.awt.BorderLayout.SOUTH);
 
         jTabbedPane1.addTab("Sản Phẩm", jPanel2);
 
@@ -455,8 +505,20 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cbxMonthYearItemStateChanged
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
-        // TODO add your handling code here:
+        try {
+            Messeger.alert(this, "Đã tạo xong: " + XExcel.xuatExcel(tblTK, "DoanhThu").getAbsolutePath());
+        } catch (Exception ex) {
+            Logger.getLogger(ThongKeJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnXuatExcelActionPerformed
+
+    private void btnXuatSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatSPActionPerformed
+        try {
+            Messeger.alert(this, "Đã tạo xong: " + XExcel.xuatExcel(tblSP, "SanPham").getAbsolutePath());
+        } catch (Exception ex) {
+            Logger.getLogger(ThongKeJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXuatSPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,6 +565,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basecard;
     private javax.swing.JButton btnXuatExcel;
+    private javax.swing.JButton btnXuatSP;
     private javax.swing.JComboBox<String> cbxChoose;
     private javax.swing.JComboBox<String> cbxDaysMonth;
     private javax.swing.JComboBox<String> cbxDaysYear;
@@ -531,11 +594,13 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblHuyDay;
     private javax.swing.JLabel lblHuyMonth;
@@ -548,20 +613,21 @@ public class ThongKeJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblTCYear;
     private javax.swing.JPanel monthCard;
     private javax.swing.JPanel panelChard;
+    private javax.swing.JTable tblSP;
     private javax.swing.JTable tblTK;
     private javax.swing.JTabbedPane tpBang;
     private javax.swing.JPanel yearCard;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-
+        setLocationRelativeTo(null);
         dt_dao = new DoanhThuDao();
 
-        jTabbedPane1.setUI(new WindowsTabbedPaneUI());
+        jTabbedPane1.setUI(new CustomTabbedPaneUI());
         jTabbedPane1.setForeground(Color.BLACK);
         jTabbedPane1.setIconAt(0, new javax.swing.ImageIcon(getClass().getResource("/poly/icons/revenue.png")));
         jTabbedPane1.setIconAt(1, new javax.swing.ImageIcon(getClass().getResource("/poly/icons/box.png")));
-        tpBang.setUI(new SynthTabbedPaneUI());
+        tpBang.setUI(new CustomTabbedPaneUI());
         loadMonths();
         loadYears();
         baseCard = (CardLayout) basecard.getLayout();
@@ -569,6 +635,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         addChartDays();
         loadDataDoanhThuDays();
         loadDataThongKeToDay();
+        loadDataSP();
     }
 
     private void loadYears() {
@@ -654,6 +721,7 @@ public class ThongKeJDialog extends javax.swing.JDialog {
         for (Object o : columns) {
             model.addColumn(o);
         }
+        
         if (cbxDaysMonth.getSelectedItem() != null & cbxDaysYear.getSelectedItem() != null) {
             int month = Integer.parseInt(cbxDaysMonth.getSelectedItem().toString());
             int year = Integer.parseInt(cbxDaysYear.getSelectedItem().toString());
@@ -696,18 +764,67 @@ public class ThongKeJDialog extends javax.swing.JDialog {
             }
         }
     }
-    
+
     private void loadDataThongKeToDay() {
         List<Object> list;
+        List<Object> list1;
+        List<Object> list2;
         try {
             list = dt_dao.getThongKeToDay();
-            
+            list1 = dt_dao.getThongKeToMonth();
+            list2 = dt_dao.getThongKeToYear();
             lblMoney.setText(list.get(0).toString());
             lblHuyDay.setText(list.get(2).toString());
             lblTCDay.setText(list.get(1).toString());
+
+            lblMoneyMonths.setText(list1.get(0).toString());
+            lblHuyMonth.setText(list1.get(2).toString());
+            lblTCMonth.setText(list1.get(1).toString());
+
+            lblMoneyYear.setText(list2.get(0).toString());
+            lblHuyYear.setText(list2.get(2).toString());
+            lblTCYear.setText(list2.get(1).toString());
         } catch (Exception ex) {
             Logger.getLogger(ThongKeJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+    }
+
+    private void loadDataSP() {
+        DefaultTableModel model = (DefaultTableModel) tblSP.getModel();
+        model.setRowCount(0);
+        List<Object[]> list;
+
+        try {
+            list = dt_dao.getThongKeSP();
+            for (Object[] row : list) {
+                model.addRow(row);
+            }
+
+            tblSP.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table,
+                        Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+
+                    super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+
+                    int sl = Integer.parseInt(table.getModel().getValueAt(row, 8).toString());
+                    if (sl < 51) {
+                        setBackground(Color.RED);
+                        setForeground(Color.YELLOW);
+                    } else if (sl < 101) {
+                        setBackground(Color.YELLOW);
+                        setForeground(Color.RED);
+                    } else {
+                        setBackground(table.getBackground());
+                        setForeground(table.getForeground());
+                    }
+                    return this;
+                }
+            });
+
+        } catch (Exception ex) {
+            Logger.getLogger(ThongKeJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
